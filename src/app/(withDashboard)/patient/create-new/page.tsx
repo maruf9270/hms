@@ -25,9 +25,13 @@ const CreateNew = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center">Add New Patient</h1>
-      <div>
-        <h3 className="text-xl">Patient Information</h3>
+      <h1 className="text-3xl font-bold text-center text-black font-serif my-5">
+        Add New Patient
+      </h1>
+      <div className="mb-10">
+        <h4 className="text-md text-black font-serif font-bold">
+          Patient Information
+        </h4>
         <Form
 
         //   onChange={settestFormValue}
@@ -103,8 +107,10 @@ const CreateNew = () => {
         <p>This is for adding new tests</p>
       </ModalHms>
       <div>
-        <h2>Patients test Information</h2>
-        <div>
+        <h4 className="text-black font-serif font-bold mb-2">
+          Patients test Information
+        </h4>
+        <div className="mb-2">
           <Button
             color="green"
             appearance="primary"
@@ -114,6 +120,17 @@ const CreateNew = () => {
           </Button>
         </div>
         <PatientTestTable></PatientTestTable>
+      </div>
+
+      <div className="flex justify-end">
+        <Button
+          color="blue"
+          appearance="primary"
+          className="mt-2 justify-self-end"
+          size="lg"
+        >
+          Add Patient
+        </Button>
       </div>
     </div>
   );
