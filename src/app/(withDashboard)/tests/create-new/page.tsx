@@ -1,22 +1,37 @@
 "use client";
+import React, { SetStateAction, useEffect, useRef, useState } from "react";
+import { Form, Header, Button, Schema } from "rsuite";
 import NewTestTable from "@/components/tests/NewTestTable";
 import ModalHms from "@/components/ui/Modal";
 import { useAppDispatch } from "@/hooks/hooks";
 import { changeModalStatus } from "@/redux/features/modal/modalSlice";
 import { addNewTestReportParam } from "@/redux/features/tests/testSlice";
-import React, { useEffect, useRef, useState } from "react";
-import { Form, Header, Button, Schema } from "rsuite";
 
 const Page = () => {
+  // Types
+  type TestParameter = {
+    investigation: string;
+    test: string;
+    unit: string;
+    normal_unit: string;
+  };
+
+  type TestFormValue = {
+    test_name: string;
+    speciman: string;
+    type: string;
+    report_group: string;
+    hospital_group: string;
+    price: string;
+    vat_rate: string;
+    process_time: string;
+    price_after_vat: string;
+  };
+
   const dispatch = useAppDispatch();
 
-  const [formValue, setFormValue] = React.useState({
-    investigation: "",
-    test: "",
-    unit: "",
-    normal_unit: "",
-  });
-  const [testFormValue, settestFormValue] = React.useState({
+  // State for Test Information Form
+  const [testFormValue, setTestFormValue] = useState<TestFormValue>({
     test_name: "",
     speciman: "",
     type: "",
@@ -27,6 +42,16 @@ const Page = () => {
     process_time: "",
     price_after_vat: "",
   });
+
+  // State for Test Result Parameter Form
+  const [formValue, setFormValue] = useState<TestParameter>({
+    investigation: "",
+    test: "",
+    unit: "",
+    normal_unit: "",
+  });
+
+  // Handlers
   const testInformationSubmitHandler = () => {
     console.log(testFormValue);
   };
@@ -36,6 +61,7 @@ const Page = () => {
     dispatch(addNewTestReportParam(formValue));
   };
 
+  // Model
   const testInformationModel = Schema.Model({
     test_name: Schema.Types.StringType().isRequired("This field is required."),
     speciman: Schema.Types.StringType().isRequired("This field is required."),
@@ -61,11 +87,15 @@ const Page = () => {
     normal_unit: Schema.Types.StringType().isRequired("This field is required"),
   });
   return (
-    <div className="border border-stone-300 min-h-screen rounded-md p-5">
-      <h1 className="text-center text-3xl font-bold">Add New Test</h1>
+    <div className=" min-h-screen rounded-md p-5">
+      <h2 className="text-3xl font-bold text-center text-black font-serif">
+        Add New Test
+      </h2>
       <div>
         <Form
-          onChange={settestFormValue}
+          onChange={(formValue, event) =>
+            setTestFormValue(formValue as TestFormValue)
+          }
           onSubmit={testInformationSubmitHandler}
           formValue={testFormValue}
           model={testInformationModel}
@@ -112,11 +142,14 @@ const Page = () => {
             </Form.Group>
           </div>
 
-          <div>
-            <h2 className="text-3xl font-bold">Test Result Parameter</h2>
+          <div className="mt-10">
+            <div className="my-5">
+              <h2 className="text-3xl font-bold text-center text-black font-serif">
+                Test Result Parameter
+              </h2>
+            </div>
             <NewTestTable></NewTestTable>
-
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-5">
               <Button color="blue" appearance="primary" type="submit" size="lg">
                 Add test
               </Button>
@@ -130,7 +163,9 @@ const Page = () => {
             <Form
               fluid
               onSubmit={handleSubmit}
-              onChange={setFormValue}
+              onChange={(formValue, event) =>
+                setFormValue(formValue as TestParameter)
+              }
               formValue={formValue}
               model={testResultParamModel}
             >
