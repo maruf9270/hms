@@ -4,7 +4,7 @@ import { reducer } from "./rootReducer";
 
 export const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware:any) =>
     getDefaultMiddleware().concat(baseApi.middleware),
 });
 

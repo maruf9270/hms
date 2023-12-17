@@ -21,10 +21,10 @@ import Navber from "@/components/ui/Navber";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="show-fake-browser sidebar-page max-w-7xl mx-auto">
-      <Navber></Navber>
+    <div className="show-fake-browser ">
+      <Navber/>
       <Container>
-        <SidebarForDashboard></SidebarForDashboard>
+        <SidebarForDashboard/>
         <Container className="p-5">
           <Content>{children}</Content>
         </Container>
